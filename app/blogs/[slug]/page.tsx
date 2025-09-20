@@ -1,10 +1,22 @@
 import { fetchBlog, getGistBlogs } from "@/components/githubDataFetcher";
+import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
 export const revalidate = 1800; // 30 minutes
+
+export async function generateMetadata({
+    params,
+}: {
+    params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+    const { slug } = await params;
+    return {
+        title: slug
+    }
+}
 
 export default async function Page({
     params,

@@ -1,8 +1,13 @@
 import BlogList from "@/components/BlogList";
 import { UserBlog } from "@/components/githubApiResponseTypes";
 import { getGistBlogs } from "@/components/githubDataFetcher";
+import { Metadata } from "next";
 
 export const revalidate = 1800; // 30 minutes
+
+export const metadata: Metadata = {
+  title: 'Jawbts Blog'
+}
 
 export default async function Page() {
   let blogs: UserBlog[] = [];
