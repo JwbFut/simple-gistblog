@@ -2,7 +2,7 @@ import BlogList from "@/components/BlogList";
 import { UserBlog } from "@/components/githubApiResponseTypes";
 import { getGistBlogs } from "@/components/githubDataFetcher";
 
-export const revalidate = 60 * 30;
+export const revalidate = 1800; // 30 minutes
 
 export default async function Page() {
   let blogs: UserBlog[] = [];

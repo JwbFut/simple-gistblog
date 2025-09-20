@@ -4,9 +4,9 @@ import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
-export const revalidate = 60 * 30;
+export const revalidate = 1800; // 30 minutes
 
-export default async function BlogPage({
+export default async function Page({
     params,
 }: {
     params: Promise<{ slug: string }>;
