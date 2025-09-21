@@ -75,6 +75,7 @@ export const getGistBlogs = async () => {
             url: gist.html_url,
             raw_url: file.raw_url,
             created_at: new Date(gist.created_at),
+            updated_at: new Date(gist.updated_at),
             author_name: gist.owner.login,
             author_url: gist.owner.html_url,
             first_chars: content.substring(0, 1000).split("\n")[0]

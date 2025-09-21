@@ -1,3 +1,4 @@
+import { normalizeUserBlog } from "@/components/githubApiResponseTypes";
 import { fetchBlog, getGistBlogs } from "@/components/githubDataFetcher";
 import { Metadata } from "next";
 import Link from "next/link";
@@ -13,8 +14,20 @@ export async function generateMetadata({
     params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
     const { slug } = await params;
+
+    const res = await getGistBlogs();
+    const blog = res.blogs.find((item) => item.title === slug);
+
+    if (!blog) {
+        return {
+            title: "Page Not Found"
+        }
+    }
+
     return {
-        title: slug
+        title: blog.author_name + " - " + slug,
+        description: blog.first_chars.slice(0, 100) + "...",
+        keywords: ["Blog"]
     }
 }
 
@@ -73,17 +86,11 @@ export default async function Page({
                         {blog.author_name}
                     </Link>
                     <p className="text-sm text-neutral-400">
-                        {typeof blog.created_at === "string"
-                            ? new Date(blog.created_at).toLocaleDateString("en-US", {
-                                year: 'numeric',
-                                month: 'long',
-                                day: 'numeric'
-                            })
-                            : blog.created_at.toLocaleDateString("en-US", {
-                                year: 'numeric',
-                                month: 'long',
-                                day: 'numeric'
-                            })
+                        {normalizeUserBlog(blog).created_at.toLocaleDateString("en-US", {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                        })
                         }
                     </p>
                 </div>

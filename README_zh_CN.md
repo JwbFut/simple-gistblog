@@ -21,4 +21,5 @@ https://blogs.jawbts.org
 3. 设置环境变量：
     - WATCHING_USERS: 您想要关注的 GitHub 用户名列表
 4. 通过编辑 ```components/Footer.tsx``` 自定义页脚
-5. 开始使用！
+5. 修改文件中的元数据。您可以搜索 Jawbts 然后全部替换他们
+6. 开始使用！

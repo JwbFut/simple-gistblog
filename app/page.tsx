@@ -6,7 +6,8 @@ import { Metadata } from "next";
 export const revalidate = 1800; // 30 minutes
 
 export const metadata: Metadata = {
-  title: 'Jawbts Blog'
+  title: 'Jawbts Blog',
+  description: 'Jawbts Blog',
 }
 
 export default async function Page() {

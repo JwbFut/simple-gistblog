@@ -20,5 +20,6 @@ Refer to nextjs quick start guide: https://nextjs.org/docs/app/getting-started
 2. Run ```npm ci && npm run dev```
 3. Set Environment Variables:
     - WATCHING_USERS: A list of GitHub usernames that you want to watch.
-3. Custom the footer by editing ```components/Footer.tsx```
-3. Enjoy!
+4. Custom the footer by editing ```components/Footer.tsx```
+5. Edit the metadata in the files. You can seach for 'Jawbts' and replace them
+6. Enjoy!
