@@ -5,9 +5,9 @@ import { NextRequest } from "next/server";
 
 export async function GET(
     request: NextRequest,
-    { params }: { params: { page: string } }
+    { params }: { params: Promise<{ page: string }> }
 ) {
-    const page = parseInt(params.page, 10) - 1;
+    const page = parseInt((await params).page, 10) - 1;
 
     if (isNaN(page) || page < 0) {
         return new Response('Invalid page', { status: 400 });
