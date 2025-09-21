@@ -1,4 +1,3 @@
-import { cache } from "react";
 import { GistFile, UserBlog, UserGist } from "@/components/githubApiResponseTypes";
 
 if (!process.env.WATCHING_USERS) {
