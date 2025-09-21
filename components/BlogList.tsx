@@ -1,6 +1,6 @@
 'use client';
 
-import { UserBlog } from '@/components/githubApiResponseTypes';
+import { normalizeUserBlog, UserBlog } from '@/components/githubApiResponseTypes';
 import Link from 'next/link';
 
 interface BlogListProps {
@@ -14,7 +14,7 @@ export default function BlogList({ blogs, author_avatars_base64 }: BlogListProps
             {blogs.map((blog) => (
                 <Link
                     key={blog.url}
-                    href={`/blogs/${encodeURIComponent(blog.title)}`}
+                    href={`/blogs/${(normalizeUserBlog(blog).created_at.getTime() / 1000).toString()}/${encodeURIComponent(blog.title)}`}
                     className="relative flex flex-col sm:flex-row items-start gap-4 p-4 rounded-lg hover:bg-neutral-700 transition-colors border-b border-neutral-700 last:border-b-0 cursor-pointer overflow-hidden"
                 >
                     {/* avatar */}

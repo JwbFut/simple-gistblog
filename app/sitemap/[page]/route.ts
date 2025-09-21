@@ -1,4 +1,5 @@
 import { ORIGIN_URL } from "@/components/Consts";
+import { normalizeUserBlog } from "@/components/githubApiResponseTypes";
 import { getSubSiteMaps } from "@/components/SiteMapManager";
 import { NextRequest } from "next/server";
 
@@ -26,7 +27,7 @@ ${cur_map.blogs
             .map(
                 (blog) => `
   <url>
-    <loc>${ORIGIN_URL}/blogs/${blog.title}</loc>
+    <loc>${ORIGIN_URL}/blogs/${(normalizeUserBlog(blog).created_at.getTime() / 1000).toString()}/${blog.title}</loc>
     <lastmod>${blog.updated_at.toISOString()}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

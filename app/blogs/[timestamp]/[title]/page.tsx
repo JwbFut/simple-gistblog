@@ -11,12 +11,12 @@ export const revalidate = 1800; // 30 minutes
 export async function generateMetadata({
     params,
 }: {
-    params: Promise<{ slug: string }>;
+    params: Promise<{ timestamp: string, title: string }>;
 }): Promise<Metadata> {
-    const { slug } = await params;
+    const { timestamp, title } = await params;
 
     const res = await getGistBlogs();
-    const blog = res.blogs.find((item) => item.title === slug);
+    const blog = res.blogs.find((item) => item.title == title && normalizeUserBlog(item).created_at.getTime() / 1000 == Number(timestamp));
 
     if (!blog) {
         return {
@@ -25,7 +25,7 @@ export async function generateMetadata({
     }
 
     return {
-        title: blog.author_name + " - " + slug,
+        title: blog.author_name + " - " + title,
         description: blog.first_chars.slice(0, 100) + "...",
         keywords: ["Blog"]
     }
@@ -34,12 +34,12 @@ export async function generateMetadata({
 export default async function Page({
     params,
 }: {
-    params: Promise<{ slug: string }>;
+    params: Promise<{ timestamp: string, title: string }>;
 }) {
-    const { slug } = await params;
+    const { timestamp, title } = await params;
 
     const res = await getGistBlogs();
-    const blog = res.blogs.find((item) => item.title === slug);
+    const blog = res.blogs.find((item) => item.title == title && normalizeUserBlog(item).created_at.getTime() / 1000 == Number(timestamp));
     const author_map = res.author_avatars_base64;
 
     if (!blog) {
