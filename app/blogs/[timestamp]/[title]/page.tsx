@@ -109,7 +109,42 @@ export default async function Page({
                         ),
                         p: ({ node, ...props }) => (
                             <p className="mb-4 text-neutral-300" {...props} />
-                        )
+                        ),
+                        img: async ({ src, alt, ...props }) => {
+                            const fetch_image = async () => {
+                                if (!src) {
+                                    return null;
+                                }
+                                let ab, content_type;
+                                if (src instanceof Blob) {
+                                    ab = await src.arrayBuffer();
+                                    content_type = src.type;
+                                } else {
+                                    const response = await fetch(src);
+                                    const blob = await response.blob();
+                                    ab = await blob.arrayBuffer();
+                                    content_type = blob.type;
+                                }
+                                const buffer = Buffer.from(ab);
+                                const base64 = buffer.toString("base64");
+                                return `data:${content_type};base64,${base64}`;
+                            }
+
+                            let url: string | null = null;
+                            try {
+                                url = await fetch_image();
+                            } catch (e) {
+                                // fallback
+                                return <img src={src} alt={alt} {...props} />;
+                            }
+
+                            if (!url) {
+                                // fallback
+                                return <img src={src} alt={alt} {...props} />;
+                            }
+
+                            return <img src={url} alt={alt} {...props} />;
+                        }
                     }}
                 >
                     {text}
