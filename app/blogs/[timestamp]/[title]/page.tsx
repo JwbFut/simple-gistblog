@@ -110,23 +110,11 @@ export default async function Page({
                         p: ({ node, ...props }) => (
                             <p className="mb-4 text-neutral-300" {...props} />
                         ),
-                        code: ({ node, inline, className, children, ...props }) => {
-                            const isInline = inline || !className;
-
-                            if (isInline) {
-                                return (
-                                    <code className="px-1 py-0.5 bg-neutral-800 text-neutral-300 rounded text-sm break-words" {...props}>
-                                        {children}
-                                    </code>
-                                );
-                            }
-
-                            return (
-                                <code className="block whitespace-pre-wrap break-words bg-neutral-800 text-neutral-300 p-4 rounded-lg my-4 text-sm overflow-x-auto" {...props}>
-                                    {children}
-                                </code>
-                            );
-                        },
+                        code: ({ node, className, children, ...props }) => (
+                            <code className="block whitespace-pre-wrap break-words bg-neutral-800 text-neutral-300 p-4 rounded-lg my-4 text-sm overflow-x-auto" {...props}>
+                                {children}
+                            </code>
+                        ),
                         pre: ({ node, ...props }) => (
                             <pre className="whitespace-pre-wrap break-words bg-neutral-800 text-neutral-300 p-4 rounded-lg my-4 overflow-x-auto" {...props} />
                         ),
