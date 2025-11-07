@@ -11,9 +11,9 @@ const HEADERS = {
     "X-GitHub-Api-Version": "2022-11-28"
 }
 
-async function fetchWithRetry(url: string, retries: number = 3, headers: Record<string, string> = {}, revalidate: number = 60 * 30) {
+async function fetchWithRetry(url: string, retries: number = 3, headers: Record<string, string> = {}) {
     try {
-        const response = await fetch(url, { headers: { ...HEADERS, ...headers }, next: { revalidate: revalidate } });
+        const response = await fetch(url, { headers: { ...HEADERS, ...headers } });
         if (response.ok) {
             return response;
         } else {
@@ -22,7 +22,7 @@ async function fetchWithRetry(url: string, retries: number = 3, headers: Record<
     } catch (error) {
         if (retries > 0) {
             console.warn(`Failed to fetch ${url}, retrying...`, error);
-            return await fetchWithRetry(url, retries - 1, headers, revalidate);
+            return await fetchWithRetry(url, retries - 1, headers);
         } else {
             console.error(`Failed to fetch ${url} after ${retries} retries`, error);
             throw error;
@@ -67,7 +67,7 @@ const _getGistBlogs = async () => {
         author_avatars.set(gist.owner.login, gist.owner.avatar_url);
 
         // Fetch the first 500 characters of the blog content
-        const content_ab = await (await fetchWithRetry(file.raw_url, 3, { Range: "bytes=0-4096" }, 3600 * 24)).arrayBuffer();
+        const content_ab = await (await fetchWithRetry(file.raw_url, 3, { Range: "bytes=0-4096" })).arrayBuffer();
         const decoder = new TextDecoder('utf-8', { fatal: false });
         const content = decoder.decode(content_ab);
 
@@ -87,7 +87,7 @@ const _getGistBlogs = async () => {
 
     // fetch avatar images
     for (const [name, url] of author_avatars) {
-        const avatar_res = await fetchWithRetry(url, 3, {}, 3600 * 24 * 7);
+        const avatar_res = await fetchWithRetry(url, 3, {});
         const avatar_ab = await avatar_res.arrayBuffer();
         const buffer = Buffer.from(avatar_ab);
         const avatar_base64 = `data:${avatar_res.headers.get('content-type')};base64,${buffer.toString('base64')}`;
@@ -98,7 +98,7 @@ const _getGistBlogs = async () => {
 };
 
 const _fetchBlog = async (raw_url: string) => {
-    const response = await fetchWithRetry(raw_url, 3, {}, 3600 * 12);
+    const response = await fetchWithRetry(raw_url, 3, {});
     return { value: await response.text(), lastUpdated: new Date() } as fetcherResult<string>;
 }
 
