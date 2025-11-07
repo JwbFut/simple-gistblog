@@ -16,6 +16,11 @@ export default async function Page() {
   let author_dict: Record<string, string> = {};
 
   const res = await getGistBlogs();
+
+  if (!res) {
+    throw new Error("Something went wrong");
+  }
+
   blogs = res.blogs;
   author_avatars_base64 = res.author_avatars_base64;
 

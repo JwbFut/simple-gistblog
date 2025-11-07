@@ -9,7 +9,11 @@ interface SubSiteMap {
 }
 
 export async function getSubSiteMaps(): Promise<SubSiteMap[]> {
-    const { blogs } = await getGistBlogs();
+    const res = await getGistBlogs();
+    if (!res) {
+        throw new Error("Something went wrong");
+    }
+    const blogs = res.blogs;
     const map_num = Math.ceil(blogs.length / MAX_URLS_PER_SITEMAP);
 
     const sub_maps: SubSiteMap[] = [];

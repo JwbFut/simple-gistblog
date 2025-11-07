@@ -25,3 +25,6 @@ https://blogs.jawbts.org
 4. 通过编辑 ```components/Footer.tsx``` 自定义页脚
 5. 修改文件中的元数据。您可以搜索 Jawbts 然后全部替换他们
 6. 开始使用！
+
+## 缓存
+默认缓存时间定义在```components/Consts.ts```。你可以把它们改成你想要的。

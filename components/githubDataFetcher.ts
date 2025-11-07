@@ -1,4 +1,6 @@
-import { GistFile, UserBlog, UserGist } from "@/components/githubApiResponseTypes";
+import { GistFile, normalizeUserBlog, UserBlog, UserGist } from "@/components/githubApiResponseTypes";
+import { fetcherResult, serverSideCache } from "@/components/ServerSideCache";
+import { API_CACHE_TIME, API_MAX_CACHE_TIME, POST_CACHE_TIME, POST_MAX_CACHE_TIME } from "./Consts";
 
 if (!process.env.WATCHING_USERS) {
     throw new Error("Environment variable WATCHING_USERS is not set");
@@ -40,7 +42,7 @@ async function fetchAllPages(url: string) {
     return allData;
 }
 
-export const getGistBlogs = async () => {
+const _getGistBlogs = async () => {
     if (!process.env.WATCHING_USERS) {
         throw new Error("Environment variable WATCHING_USERS is not set");
     }
@@ -92,10 +94,26 @@ export const getGistBlogs = async () => {
         author_avatars_base64.set(name, avatar_base64);
     }
 
-    return { blogs, author_avatars_base64 };
+    return { value: { blogs, author_avatars_base64 }, lastUpdated: new Date() } as fetcherResult<{ blogs: UserBlog[], author_avatars_base64: Map<string, string> }>;
 };
 
-export const fetchBlog = async (raw_url: string) => {
+const _fetchBlog = async (raw_url: string) => {
     const response = await fetchWithRetry(raw_url, 3, {}, 3600 * 12);
-    return await response.text();
+    return { value: await response.text(), lastUpdated: new Date() } as fetcherResult<string>;
+}
+
+export const getGistBlogs = async () => {
+    return await serverSideCache.get("gist_blogs", _getGistBlogs, undefined, API_CACHE_TIME, API_MAX_CACHE_TIME);
+}
+
+// null: something went wrong
+// undefined: not found
+export const fetchBlog = async (timestamp: string, title: string) => {
+    const res = await getGistBlogs();
+    if (!res) return null;
+
+    const blog = res.blogs.find((item) => item.title == title && normalizeUserBlog(item).created_at.getTime() / 1000 == Number(timestamp));
+    if (!blog) return undefined;
+
+    return { text: await serverSideCache.get(`blog_${blog.title}%$#DONT_USE_THIS_KEY#$%${timestamp}`, () => _fetchBlog(blog.raw_url), normalizeUserBlog(blog).updated_at, POST_CACHE_TIME, POST_MAX_CACHE_TIME), blog: normalizeUserBlog(blog) };
 }

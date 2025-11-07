@@ -15,20 +15,27 @@ export async function generateMetadata({
 }): Promise<Metadata> {
     const { timestamp, title } = await params;
 
-    const res = await getGistBlogs();
-    const blog = res.blogs.find((item) => item.title == title && normalizeUserBlog(item).created_at.getTime() / 1000 == Number(timestamp));
+    const res = await fetchBlog(timestamp, title);
 
-    if (!blog) {
+    if (res == undefined) {
         return {
             title: "Page Not Found"
         }
-    }
+    };
+
+    if (res == null) {
+        return {
+            title: "Something Went Wrong"
+        }
+    };
+
+    const blog = res.blog;
 
     return {
         title: blog.author_name + " - " + title,
         description: blog.first_chars.slice(0, 100) + "...",
         keywords: ["Blog"]
-    }
+    };
 }
 
 export default async function Page({
@@ -38,15 +45,25 @@ export default async function Page({
 }) {
     const { timestamp, title } = await params;
 
-    const res = await getGistBlogs();
-    const blog = res.blogs.find((item) => item.title == title && normalizeUserBlog(item).created_at.getTime() / 1000 == Number(timestamp));
-    const author_map = res.author_avatars_base64;
+    const res = await fetchBlog(timestamp, title);
 
-    if (!blog) {
+    if (res == undefined) {
         notFound();
     }
 
-    const text = await fetchBlog(blog.raw_url);
+    if (res == null) {
+        throw new Error("Something Went Wrong");
+    }
+
+    const text = res.text;
+    const blog = res.blog;
+
+    const resB = await getGistBlogs();
+    if (!resB) {
+        throw new Error("Something Went Wrong");
+    }
+
+    const author_map = resB.author_avatars_base64;
 
     return (
         <div className="max-w-4xl mx-auto px-4 py-8">

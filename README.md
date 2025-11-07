@@ -25,3 +25,6 @@ Refer to nextjs quick start guide: https://nextjs.org/docs/app/getting-started
 4. Custom the footer by editing ```components/Footer.tsx```
 5. Edit the metadata in the files. You can seach for 'Jawbts' and replace them
 6. Enjoy!
+
+## Caching
+The default cache time is defined in ```components/Consts.ts```. You can change it to your desired time.
