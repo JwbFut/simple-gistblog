@@ -13,7 +13,7 @@ const HEADERS = {
 
 async function fetchWithRetry(url: string, retries: number = 3, headers: Record<string, string> = {}) {
     try {
-        const response = await fetch(url, { headers: { ...HEADERS, ...headers } });
+        const response = await fetch(url, { headers: { ...HEADERS, ...headers }, signal: AbortSignal.timeout(8000) });
         if (response.ok) {
             return response;
         } else {
