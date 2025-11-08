@@ -1,6 +1,6 @@
-import { MAX_URLS_PER_SITEMAP } from "./Consts";
-import { NormalizedUserBlog, normalizeUserBlog } from "./GithubApiResponseTypes";
-import { getGistBlogs } from "./GithubDataFetcher"
+import { MAX_URLS_PER_SITEMAP } from "@/components/Consts";
+import { NormalizedUserBlog, normalizeUserBlog } from "@/components/GithubApiResponseTypes";
+import { getGistBlogs } from "@/components/GithubDataFetcher"
 
 interface SubSiteMap {
     id: number

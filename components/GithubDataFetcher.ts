@@ -1,6 +1,6 @@
 import { GistFile, normalizeUserBlog, UserBlog, UserGist } from "@/components/GithubApiResponseTypes";
 import { fetcherResult, serverSideCache } from "@/components/ServerSideCache";
-import { API_CACHE_TIME, API_MAX_CACHE_TIME, POST_CACHE_TIME, POST_MAX_CACHE_TIME } from "./Consts";
+import { API_CACHE_TIME, API_MAX_CACHE_TIME, POST_CACHE_TIME, POST_MAX_CACHE_TIME } from "@/components/Consts";
 
 if (!process.env.WATCHING_USERS) {
     throw new Error("Environment variable WATCHING_USERS is not set");
