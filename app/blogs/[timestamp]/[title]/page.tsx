@@ -1,5 +1,5 @@
-import { normalizeUserBlog } from "@/components/githubApiResponseTypes";
-import { fetchBlog, getGistBlogs } from "@/components/githubDataFetcher";
+import { normalizeUserBlog } from "@/components/GithubApiResponseTypes";
+import { fetchBlog, getGistBlogs } from "@/components/GithubDataFetcher";
 import LayoutWrapper from "@/components/LayoutWrapper";
 import { Metadata } from "next";
 import Link from "next/link";

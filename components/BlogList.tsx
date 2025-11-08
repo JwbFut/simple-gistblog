@@ -1,6 +1,6 @@
 'use client';
 
-import { normalizeUserBlog, UserBlog } from '@/components/githubApiResponseTypes';
+import { normalizeUserBlog, UserBlog } from '@/components/GithubApiResponseTypes';
 import Link from 'next/link';
 
 interface BlogListProps {

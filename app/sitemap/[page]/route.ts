@@ -1,5 +1,5 @@
 import { ORIGIN_URL } from "@/components/Consts";
-import { normalizeUserBlog } from "@/components/githubApiResponseTypes";
+import { normalizeUserBlog } from "@/components/GithubApiResponseTypes";
 import { getSubSiteMaps } from "@/components/SiteMapManager";
 import { NextRequest } from "next/server";
 

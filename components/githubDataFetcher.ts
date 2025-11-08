@@ -1,4 +1,4 @@
-import { GistFile, normalizeUserBlog, UserBlog, UserGist } from "@/components/githubApiResponseTypes";
+import { GistFile, normalizeUserBlog, UserBlog, UserGist } from "@/components/GithubApiResponseTypes";
 import { fetcherResult, serverSideCache } from "@/components/ServerSideCache";
 import { API_CACHE_TIME, API_MAX_CACHE_TIME, POST_CACHE_TIME, POST_MAX_CACHE_TIME } from "./Consts";
 

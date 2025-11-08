@@ -1,6 +1,6 @@
 import BlogList from "@/components/BlogList";
-import { UserBlog } from "@/components/githubApiResponseTypes";
-import { getGistBlogs } from "@/components/githubDataFetcher";
+import { UserBlog } from "@/components/GithubApiResponseTypes";
+import { getGistBlogs } from "@/components/GithubDataFetcher";
 import LayoutWrapper from "@/components/LayoutWrapper";
 import { Metadata } from "next";
 
