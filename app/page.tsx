@@ -1,7 +1,6 @@
 import BlogList from "@/components/BlogList";
 import { UserBlog } from "@/components/GithubApiResponseTypes";
 import { getGistBlogs } from "@/components/GithubDataFetcher";
-import LayoutWrapper from "@/components/LayoutWrapper";
 import { Metadata } from "next";
 
 export const revalidate = 1800; // 30 minutes
@@ -41,14 +40,12 @@ export default async function Page() {
     });
 
     return (
-        <LayoutWrapper>
-            <div className="bg-neutral-800 min-h-screen text-white p-6">
-                <h1 className="text-4xl font-bold mb-8 text-left max-w-4xl mx-auto">
-                    Jawbts Blogs
-                </h1>
+        <div className="bg-neutral-800 min-h-screen text-white p-6">
+            <h1 className="text-4xl font-bold mb-8 text-left max-w-4xl mx-auto">
+                Jawbts Blogs
+            </h1>
 
-                <BlogList blogs={sortedBlogs} author_avatars_base64={author_dict} />
-            </div>
-        </LayoutWrapper>
+            <BlogList blogs={sortedBlogs} author_avatars_base64={author_dict} />
+        </div>
     );
 }
