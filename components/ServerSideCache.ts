@@ -98,6 +98,8 @@ class ServerSideCache {
 
             try {
                 return await this.updateEntry(key, fetcher, minCacheTime, maxCacheTime);
+            } catch (e) {
+                return undefined;
             } finally {
                 this.lock.delete(key);
                 lock.unlock();
