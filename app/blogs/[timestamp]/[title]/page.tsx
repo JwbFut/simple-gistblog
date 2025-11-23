@@ -13,7 +13,9 @@ export async function generateMetadata({
 }: {
     params: Promise<{ timestamp: string, title: string }>;
 }): Promise<Metadata> {
-    const { timestamp, title } = await params;
+    let { timestamp, title } = await params;
+
+    title = decodeURIComponent(title);
 
     const res = await fetchBlog(timestamp, title);
 
@@ -43,7 +45,9 @@ export default async function Page({
 }: {
     params: Promise<{ timestamp: string, title: string }>;
 }) {
-    const { timestamp, title } = await params;
+    let { timestamp, title } = await params;
+
+    title = decodeURIComponent(title);
 
     const res = await fetchBlog(timestamp, title);
 
