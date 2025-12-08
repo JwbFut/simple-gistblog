@@ -112,7 +112,7 @@ export const fetchBlog = async (timestamp: string, title: string) => {
     const res = await getGistBlogs();
     if (!res) return null;
 
-    const blog = res.blogs.find((item) => item.title == title && normalizeUserBlog(item).created_at.getTime() / 1000 == Number(timestamp));
+    const blog = res.blogs.find((item) => item.title.toLowerCase() == title.toLowerCase() && normalizeUserBlog(item).created_at.getTime() / 1000 == Number(timestamp));
     if (!blog) return undefined;
 
     return { text: await serverSideCache.get(`blog_${blog.title}%$#DONT_USE_THIS_KEY#$%${timestamp}`, () => _fetchBlog(blog.raw_url), normalizeUserBlog(blog).updated_at, POST_CACHE_TIME, POST_MAX_CACHE_TIME), blog: normalizeUserBlog(blog) };

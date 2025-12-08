@@ -16,6 +16,8 @@ This system will fetch the *watching users*' gists and display them as blog post
 **Don't** create two posts with same name at the same second!
 **Don't** contain ```%$#DONT_USE_THIS_KEY#$%``` in your gist's title!
 
+Blog titles are **case-insensitive**.
+
 ## Quick Start
 Refer to nextjs quick start guide: https://nextjs.org/docs/app/getting-started
 

@@ -16,6 +16,8 @@ https://blogs.jawbts.org
 **不要** 在同一秒创建两个有相同名字的帖子!
 **不要** 在你的帖子标题里包含 ```%$#DONT_USE_THIS_KEY#$%``` !
 
+博客标题**大小写不敏感**
+
 ## 快速开始
 参考 Next.js 快速入门指南：https://nextjs.org/docs/app/getting-started
 
