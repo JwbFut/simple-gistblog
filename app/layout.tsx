@@ -18,7 +18,7 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang="zh" className="bg-neutral-800">
+        <html lang="en-US" className="bg-neutral-800">
             <body className="overflow-x-clip">
                 {children}
 
