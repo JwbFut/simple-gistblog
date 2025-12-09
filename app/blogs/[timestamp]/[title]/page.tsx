@@ -33,9 +33,15 @@ export async function generateMetadata({
 
     const blog = res.blog;
 
+    if (title.length < 11) {
+        title = `${blog.author_name}'s Blog: ${title}`
+    } else {
+        title = `${title} by ${blog.author_name}`
+    }
+
     return {
-        title: blog.author_name + " - " + title,
-        description: blog.first_chars.slice(0, 100) + "...",
+        title: title,
+        description: blog.first_chars.slice(0, 150) + "...",
         keywords: ["Blog"]
     };
 }
