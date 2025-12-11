@@ -8,6 +8,21 @@ interface BlogListProps {
     author_avatars_base64: Record<string, string>;
 }
 
+const formatter = new Intl.DateTimeFormat("en-US", {
+    timeZone: "UTC",
+});
+
+function getFormattedDate(date: Date | string): string {
+    let dateObj: Date;
+    if (typeof date === "string") {
+        dateObj = new Date(date);
+    } else {
+        dateObj = date;
+    }
+
+    return formatter.format(dateObj);
+}
+
 export default function BlogList({ blogs, author_avatars_base64 }: BlogListProps) {
     return (
         <div className="max-w-4xl mx-auto space-y-4">
@@ -42,7 +57,7 @@ export default function BlogList({ blogs, author_avatars_base64 }: BlogListProps
 
                             {/* date & author */}
                             <p className="text-sm text-neutral-400 mt-1">
-                                {typeof blog.created_at === "string" ? new Date(blog.created_at).toLocaleDateString("en-US") : blog.created_at.toLocaleDateString("en-US")} by {blog.author_name}
+                                {getFormattedDate(blog.created_at)} by {blog.author_name}
                             </p>
                         </div>
 
