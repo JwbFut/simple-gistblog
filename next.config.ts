@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
                 headers: [
                     {
                         key: 'CDN-Cache-Control',
-                        value: 'public, max-age=86400, stale-while-revalidate=1800', // 1 day; 30 minutes
+                        value: 'public, max-age=1800, stale-while-revalidate=86400', // 1 day; 30 minutes
                     },
                 ],
             },
