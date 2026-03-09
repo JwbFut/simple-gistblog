@@ -5,6 +5,11 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+
+import 'katex/dist/katex.min.css';
+import 'github-markdown-css/github-markdown-dark.css';
 
 export const revalidate = 1800; // 30 minutes
 
@@ -125,27 +130,11 @@ export default async function Page({
             </div>
 
             {/* blog content */}
-            <article className="prose prose-invert prose-lg max-w-none mb-5">
+            <article className="markdown-body markdown-body-dark max-w-none mb-5">
                 <ReactMarkdown
-                    remarkPlugins={[remarkGfm]}
+                    remarkPlugins={[remarkMath, remarkGfm]}
+                    rehypePlugins={[rehypeKatex]}
                     components={{
-                        a: ({ node, ...props }) => (
-                            <a className="text-blue-300 hover:text-blue-100 hover:underline transition-colors" {...props} />
-                        ),
-                        blockquote: ({ node, ...props }) => (
-                            <blockquote className="border-l-4 border-blue-400 pl-4 text-neutral-400 [&>p]:text-neutral-400 my-4" {...props} />
-                        ),
-                        p: ({ node, ...props }) => (
-                            <p className="mb-4 text-neutral-300" {...props} />
-                        ),
-                        code: ({ node, className, children, ...props }) => (
-                            <code className="block whitespace-pre-wrap break-words bg-neutral-800 text-neutral-300 p-4 rounded-lg my-4 text-sm overflow-x-auto" {...props}>
-                                {children}
-                            </code>
-                        ),
-                        pre: ({ node, ...props }) => (
-                            <pre className="whitespace-pre-wrap break-words bg-neutral-800 text-neutral-300 p-4 rounded-lg my-4 overflow-x-auto" {...props} />
-                        ),
                         img: async ({ src, alt, ...props }) => {
                             const fetch_image = async () => {
                                 if (!src) {

@@ -13,3 +13,59 @@
     -ms-overflow-style: none;
     /* IE & Edge */
 }
+
+.markdown-body .katex,
+.markdown-body .katex * {
+    color: #e5e7eb !important;
+    /* text-neutral-200 */
+}
+
+.markdown-body {
+    background-color: transparent !important;
+}
+
+.markdown-body pre,
+.markdown-body code {
+    background-color: transparent !important;
+}
+
+.markdown-body table {
+    background-color: transparent !important;
+    border-collapse: collapse;
+}
+
+.markdown-body th {
+    border: 1px solid #ffffff !important;
+}
+
+.markdown-body td {
+    border: 1px solid #ffffff !important;
+}
+
+.markdown-body {
+    background-color: transparent !important;
+
+    --color-canvas-default: transparent !important;
+    --color-canvas-subtle: transparent !important;
+}
+
+.markdown-body table {
+    border-collapse: collapse;
+    background-color: transparent !important;
+}
+
+.markdown-body td,
+.markdown-body th,
+.markdown-body tr {
+    background-color: transparent !important;
+}
+
+.markdown-body a {
+    color: #60a5fa !important;
+    text-decoration: none;
+}
+
+.markdown-body a:hover {
+    color: #93c5fd !important;
+    text-decoration: underline;
+}
