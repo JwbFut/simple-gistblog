@@ -7,6 +7,8 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 import 'katex/dist/katex.min.css';
 import 'github-markdown-css/github-markdown-dark.css';
@@ -169,6 +171,28 @@ export default async function Page({
                             }
 
                             return <img src={url} alt={alt} {...props} />;
+                        },
+                        code({ node, className, children, ...props }) {
+                            const match = /language-(\w+)/.exec(className || '');
+
+                            if (match && vscDarkPlus != undefined) {
+                                return (
+                                    <SyntaxHighlighter
+                                        style={vscDarkPlus}
+                                        language={match[1]}
+                                        showLineNumbers={false}
+                                    // {...props} idk why this is causing an error
+                                    >
+                                        {String(children).replace(/\n$/, '')}
+                                    </SyntaxHighlighter>
+                                );
+                            }
+
+                            return (
+                                <code className={className} {...props}>
+                                    {children}
+                                </code>
+                            );
                         }
                     }}
                 >
