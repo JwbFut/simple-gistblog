@@ -10,7 +10,7 @@
   "dependencies": {
     "github-markdown-css": "^5.9.0",
     "katex": "^0.16.38",
-    "next": "15.5.9",
+    "next": "15.5.10",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-markdown": "^10.1.0",
