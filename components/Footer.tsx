@@ -10,7 +10,7 @@ export default function Footer() {
         <footer className="my-5 text-center text-sm text-neutral-500">
             <p>© {new Date().getFullYear()} Jawbts. All Rights Reserved for blog content.</p>
             <p className="mt-1">
-                Source code is open source (GNU GPL v3) —{' '}
+                Source code is open source (GNU GPL v3), Build {buildHash} —{' '}
                 <a
                     href="https://github.com/jwbfut/simple-gistblog"
                     target="_blank"
@@ -19,7 +19,6 @@ export default function Footer() {
                 >
                     View on GitHub
                 </a>
-                {' '}Build hash {buildHash}
             </p>
         </footer>
     );
