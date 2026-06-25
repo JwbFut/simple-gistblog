@@ -181,7 +181,9 @@ export default async function Page({
                                         style={vscDarkPlus}
                                         language={match[1]}
                                         showLineNumbers={false}
-                                    // {...props} idk why this is causing an error
+                                    // {...props}
+                                    // only a few components are allowed to be passed through
+                                    // at the moment we just ignore them
                                     >
                                         {String(children).replace(/\n$/, '')}
                                     </SyntaxHighlighter>
