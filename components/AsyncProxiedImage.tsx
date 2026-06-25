@@ -1,0 +1,30 @@
+async function fetch_image(src: string | Blob) {
+    let ab, content_type;
+    if (src instanceof Blob) {
+        ab = await src.arrayBuffer();
+        content_type = src.type;
+    } else {
+        const response = await fetch(src);
+        const blob = await response.blob();
+        ab = await blob.arrayBuffer();
+        content_type = blob.type;
+    }
+
+    const buffer = Buffer.from(ab);
+    const base64 = buffer.toString("base64");
+    return `data:${content_type};base64,${base64}`;
+}
+
+export default async function AsyncProxiedImage({ src, alt, ...props }: any) {
+    // fallback, let native browser handle
+    if (!src) return <img src={src} alt={alt} {...props} />;
+
+    let data;
+    try {
+        data = await fetch_image(src);
+    } catch (e) {
+        return <img src={src} alt={alt} {...props} />;
+    }
+
+    return <img src={data} alt={alt} {...props} />;
+};
