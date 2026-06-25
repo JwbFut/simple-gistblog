@@ -12,7 +12,6 @@ export const metadata: Metadata = {
 
 export default async function Page() {
     let blogs: UserBlog[] = [];
-    let author_avatars_base64: Map<string, string>;
     let author_dict: Record<string, string> = {};
 
     const res = await getGistBlogs();
@@ -22,14 +21,15 @@ export default async function Page() {
     }
 
     blogs = res.blogs;
-    author_avatars_base64 = res.author_avatars_base64;
+    const author_avatars_base64 = res.author_avatars_base64;
 
     for (const [k, v] of author_avatars_base64) {
         author_dict[k] = v;
     }
 
     // newest first
-    const sortedBlogs = blogs.sort((a, b) => {
+    // due to modified timestamp, copy
+    const sortedBlogs = [...blogs].sort((a, b) => {
         if (typeof a.created_at === "string") {
             a.created_at = new Date(a.created_at);
         }
