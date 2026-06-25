@@ -17,7 +17,9 @@
     "react-syntax-highlighter": "^16.1.1",
     "rehype-katex": "^7.0.1",
     "remark-gfm": "^4.0.1",
-    "remark-math": "^6.0.0"
+    "remark-math": "^6.0.0",
+    "postcss": "^8.5.10",
+    "tar": "^7.5.16"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -27,6 +29,7 @@
     "@types/react-syntax-highlighter": "^15.5.13",
     "postcss": "^8.5.10",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "tar": "^7.5.16"
   }
 }
