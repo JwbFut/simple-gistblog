@@ -1,20 +1,20 @@
 import 'server-only';
 
-async function fetch_image(src: string | Blob) {
-    let ab, content_type;
+async function fetchImage(src: string | Blob) {
+    let arrayBuffer: ArrayBuffer, contentType: string;
     if (src instanceof Blob) {
-        ab = await src.arrayBuffer();
-        content_type = src.type;
+        arrayBuffer = await src.arrayBuffer();
+        contentType = src.type;
     } else {
         const response = await fetch(src);
         const blob = await response.blob();
-        ab = await blob.arrayBuffer();
-        content_type = blob.type;
+        arrayBuffer = await blob.arrayBuffer();
+        contentType = blob.type;
     }
 
-    const buffer = Buffer.from(ab);
+    const buffer = Buffer.from(arrayBuffer);
     const base64 = buffer.toString("base64");
-    return `data:${content_type};base64,${base64}`;
+    return `data:${contentType};base64,${base64}`;
 }
 
 interface AsyncProxiedImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
@@ -28,7 +28,7 @@ export default async function AsyncProxiedImage({ src, alt, ...props }: AsyncPro
 
     let data;
     try {
-        data = await fetch_image(src);
+        data = await fetchImage(src);
     } catch (e: unknown) {
         return <img src={src} alt={alt} {...props} />;
     }
