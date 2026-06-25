@@ -30,6 +30,9 @@ export default async function AsyncProxiedImage({ src, alt, ...props }: AsyncPro
     try {
         data = await fetch_image(src);
     } catch (e: unknown) {
+        if (process.env.NODE_ENV !== 'production') {
+            console.error('AsyncProxiedImage: failed to fetch/proxy image source', e);
+        }
         return <img src={src} alt={alt} {...props} />;
     }
 
