@@ -175,7 +175,7 @@ export default async function Page({
                         code({ node, className, children, ...props }) {
                             const match = /language-(\w+)/.exec(className || '');
 
-                            if (match && vscDarkPlus != undefined) {
+                            if (match) {
                                 return (
                                     <SyntaxHighlighter
                                         style={vscDarkPlus}
