@@ -7,6 +7,9 @@ async function fetchImage(src: string | Blob) {
         contentType = src.type;
     } else {
         const response = await fetch(src);
+        if (!response.ok) {
+            throw new Error(`Failed to fetch image: ${response.status} ${response.statusText}`);
+        }
         const blob = await response.blob();
         arrayBuffer = await blob.arrayBuffer();
         contentType = blob.type;
