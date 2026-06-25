@@ -15,14 +15,19 @@ async function fetch_image(src: string | Blob) {
     return `data:${content_type};base64,${base64}`;
 }
 
-export default async function AsyncProxiedImage({ src, alt, ...props }: any) {
+interface AsyncProxiedImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
+    src?: string | Blob;
+    alt?: string;
+}
+
+export default async function AsyncProxiedImage({ src, alt, ...props }: AsyncProxiedImageProps) {
     // fallback, let native browser handle
     if (!src) return <img src={src} alt={alt} {...props} />;
 
     let data;
     try {
         data = await fetch_image(src);
-    } catch (e) {
+    } catch (e: unknown) {
         return <img src={src} alt={alt} {...props} />;
     }
 
