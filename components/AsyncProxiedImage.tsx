@@ -34,7 +34,7 @@ export default async function AsyncProxiedImage({ src, alt, ...props }: AsyncPro
         data = await fetchImage(src);
     } catch (e: unknown) {
         if (process.env.NODE_ENV === "development") console.error("Failed to fetch and convert image in AsyncProxiedImage", e);
-        return <img src={src instanceof Blob ? URL.createObjectURL(src) : src} alt={alt} {...props} />;
+        return <img src={src instanceof Blob ? undefined : src} alt={alt} {...props} />;
     }
 
     return <img src={data} alt={alt} {...props} />;
