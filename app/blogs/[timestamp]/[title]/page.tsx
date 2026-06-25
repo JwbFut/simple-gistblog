@@ -26,13 +26,13 @@ export async function generateMetadata({
 
     const res = await fetchBlog(timestamp, title);
 
-    if (res == undefined) {
+    if (res === undefined) {
         return {
             title: "Page Not Found"
         }
     };
 
-    if (res == null) {
+    if (res === null) {
         return {
             title: "Something Went Wrong"
         }
