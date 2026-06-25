@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default async function Page() {
     let blogs: UserBlog[] = [];
-    let author_avatars_base64: Map<string, string> = new Map();
+    let author_avatars_base64: Map<string, string>;
     let author_dict: Record<string, string> = {};
 
     const res = await getGistBlogs();
