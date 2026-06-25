@@ -1,3 +1,5 @@
+import 'server-only';
+
 async function fetch_image(src: string | Blob) {
     let ab, content_type;
     if (src instanceof Blob) {
