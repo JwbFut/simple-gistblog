@@ -64,11 +64,11 @@ export default async function Page({
 
     const res = await fetchBlog(timestamp, title);
 
-    if (res == undefined) {
+    if (res === undefined) {
         notFound();
     }
 
-    if (res == null) {
+    if (res === null) {
         throw new Error("Something Went Wrong");
     }
 
